@@ -1,0 +1,5 @@
+# secrets & runtime state (never commit)
+.env
+data/
+config/gns3_server.conf
+config/gns3_controller.conf

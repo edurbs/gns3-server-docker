@@ -3,8 +3,8 @@ host = 0.0.0.0
 port = 3080
 
 auth = True
-user = gns3
-password = gns3
+user = @GNS3_USER@
+password = @GNS3_PASSWORD@
 
 images_path = /root/GNS3/images
 projects_path = /root/GNS3/projects

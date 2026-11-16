@@ -8,6 +8,16 @@ services:
       - /dev/kvm:/dev/kvm
     ports:
       - "127.0.0.1:3080:3080"
+    environment:
+      GNS3_USER: ${GNS3_USER:?copy .env.example to .env and set real values}
+      GNS3_PASSWORD: ${GNS3_PASSWORD:?copy .env.example to .env and set real values}
     volumes:
+      - ./config/gns3_server.conf.template:/srv/gns3_server.conf.template:ro
       - ./config:/root/.config/GNS3/2.2
       - ./data:/root/GNS3
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        python3 -c "import os, pathlib; src = pathlib.Path('/srv/gns3_server.conf.template').read_text(); out = src.replace('@GNS3_USER@', os.environ['GNS3_USER']).replace('@GNS3_PASSWORD@', os.environ['GNS3_PASSWORD']); pathlib.Path('/root/.config/GNS3/2.2/gns3_server.conf').write_text(out)"
+        exec python3 -m gns3server --port 3080
