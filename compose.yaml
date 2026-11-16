@@ -1,0 +1,13 @@
+services:
+  gns3-server:
+    image: gns3/gns3-server:2.2.61
+    container_name: gns3-server
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/kvm:/dev/kvm
+    ports:
+      - "3080:3080"
+    volumes:
+      - ./config:/root/.config/GNS3/2.2
+      - ./data:/root/GNS3
