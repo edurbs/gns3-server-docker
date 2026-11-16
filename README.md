@@ -32,6 +32,11 @@ docker compose up -d
 Open http://localhost:3080 and log in with the credentials from `.env`.
 
 To change credentials later: edit `.env`, then `docker compose up -d`.
+⚠️ A plain `docker compose restart` is NOT enough — the container keeps its
+frozen environment and re-renders the config with the **old** values, silently
+ignoring your change. Only recreation (`up -d`) applies new credentials.
+`config/gns3_server.conf` is regenerated on every start, so hand-edits to it
+are overwritten — always go through `.env`.
 
 ## Files
 
